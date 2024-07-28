@@ -1,0 +1,37 @@
+using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FirstSeleniumProject
+{
+    public class LaunchChrome
+    {
+        IWebDriver driver;
+        [SetUp]
+        public void SetupMethod()
+        {
+            driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
+            driver.Navigate().GoToUrl("https://rahulshettyacademy.com/loginpagePractise");
+
+        }
+        [Test]
+        public void TestMethod()
+        {
+            Console.WriteLine(driver.Title);
+            Console.WriteLine(driver.Url);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+           // driver.Close();
+        }
+
+    }
+}
