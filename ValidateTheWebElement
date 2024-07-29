@@ -1,0 +1,42 @@
+using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
+
+namespace FirstSeleniumProject
+{
+    public class ValidateTheWebElement
+    {
+        IWebDriver driver;
+        [SetUp]
+        public void SetUp()
+        {
+            driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
+            driver.Navigate().GoToUrl("https://rahulshettyacademy.com/loginpagePractise/");
+        }
+
+        [Test]
+        public void ValidateWebElement()
+        {
+            IWebElement link = driver.FindElement(By.LinkText("Free Access to InterviewQues/ResumeAssistance/Material"));
+            string linkelement = link.GetAttribute("href");
+            string expectedlink = "https://rahulshettyacademy.com/documents-request";
+            Assert.That(linkelement, Is.EqualTo(expectedlink));
+
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            driver.Close();
+
+        }
+
+    }
+}
