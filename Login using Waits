@@ -1,0 +1,49 @@
+using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+using System;
+
+namespace FirstSeleniumProject
+{
+    public class LoginPage
+    {
+        IWebDriver driver;
+
+        [SetUp]
+        public void SetUpMethod()
+        {
+            driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
+            driver.Navigate().GoToUrl("https://rahulshettyacademy.com/loginpagePractise");
+            //implicitwait is applied for all the webelement present in the webpage
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(8);
+        }
+
+        [Test]
+        public void LoginTheLoginPage()
+        {
+            driver.FindElement(By.Name("username")).SendKeys("rahulshettyacademy");
+            driver.FindElement(By.CssSelector("input[name='password']")).SendKeys("learning");
+            driver.FindElement(By.XPath("//form[@id='login-form']/div[4]/div/label[2]/span[2]")).Click();
+
+            //ExplicitWait is used to aiming the particular webelement in the webpage
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(8));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//button[@id='okayBtn']")));
+            driver.FindElement(By.XPath("//button[@id='okayBtn']")).Click();
+
+            IWebElement webElement = driver.FindElement(By.XPath("//form[@id='login-form']/div[5]/select"));
+            SelectElement s = new SelectElement(webElement);
+            s.SelectByIndex(1);
+            driver.FindElement(By.XPath("//form[@id='login-form']/div[6]/label/span[1]")).Click();
+            driver.FindElement(By.Id("signInBtn")).Click();
+        }
+
+        [TearDown]
+        public void TearDownMethod()
+        {
+            Thread.Sleep(8000);
+            driver.Close();
+        }
+    }
+}
