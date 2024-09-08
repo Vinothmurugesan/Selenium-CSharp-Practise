@@ -1,0 +1,43 @@
+using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace VinothProject {
+    public class AlertMsg
+    {
+        IWebDriver driver;
+
+        [SetUp]
+        public void Setuprun()
+        {
+            driver = new EdgeDriver();
+            driver.Manage().Window.Maximize();
+            driver.Navigate().GoToUrl("https://rahulshettyacademy.com/AutomationPractice/");
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(6);
+
+        }
+
+        [Test]
+        public void GotoAlert()
+        {
+            driver.FindElement(By.Id("name")).SendKeys("Vinoth");
+            driver.FindElement(By.Id("alertbtn")).Click();
+            string text = driver.SwitchTo().Alert().Text;
+            StringAssert.Contains("vinoth", text.ToLower());
+            driver.SwitchTo().Alert().Accept();
+           
+        }
+
+        [TearDown]
+        public void CloseMethod()
+        {
+            driver.Quit();
+        }
+
+    }
+}
