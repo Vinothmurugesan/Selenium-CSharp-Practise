@@ -1,0 +1,46 @@
+using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AdvanceSelenium
+{
+    public class ChildTab
+    {
+        IWebDriver driver;
+
+        [SetUp]
+        public void SetUp()
+        {
+            driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            driver.Navigate().GoToUrl("https://rahulshettyacademy.com/loginpagePractise/");
+
+        }
+
+        [Test]
+        public void ChildTabMethod()
+        {
+            
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.ClassName("blinkingText")));
+            driver.FindElement(By.ClassName("blinkingText")).Click();
+            Assert.That(driver.WindowHandles.Count,Is.EqualTo(2));
+            string windownames = driver.WindowHandles[1];
+            driver.SwitchTo().Window(windownames);
+            string title =  driver.FindElement(By.CssSelector("h1")).Text;
+            Console.WriteLine(title);
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+           Console.WriteLine(driver.Title);
+
+
+
+        }
+    }
+}
