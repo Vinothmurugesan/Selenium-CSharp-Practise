@@ -1,0 +1,27 @@
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ecommerce_Project.SeleniumBasics
+{
+    public class StaticDropDown
+    {
+        [Test]
+        public void TestMethod()
+        {
+            IWebDriver driver = new ChromeDriver();
+            driver.Manage().Window.FullScreen();
+            driver.Navigate().GoToUrl("https://rahulshettyacademy.com/AutomationPractice/");
+            IWebElement element = driver.FindElement(By.Id("dropdown-class-example"));
+            SelectElement s = new SelectElement(element);
+           // s.SelectByValue("option2");
+           // s.SelectByText("Option3");
+           // s.SelectByIndex(1);
+        }
+    }
+}
