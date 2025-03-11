@@ -1,0 +1,38 @@
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Support.UI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ecommerce_Project.SeleniumBasics
+{
+     public class AutoSuggestion
+    {
+        [Test]
+        public void Testmethod()
+        {
+            IWebDriver driver = new ChromeDriver();
+            driver.Navigate().GoToUrl("https://rahulshettyacademy.com/AutomationPractice/");
+            driver.FindElement(By.XPath("//input[@id='autocomplete']")).SendKeys("Sr");
+
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            
+            IList<IWebElement> list = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.ClassName("ui-menu-item-wrapper")));
+            foreach(IWebElement element in list)
+            {
+                if(element.Text.Equals("Sri Lanka"))
+                {
+                    element.Click();
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
+            }
+        }
+    }
+}
