@@ -1,0 +1,36 @@
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ecommerce_Project.SeleniumBasics
+{
+    public class RadioButton
+    {
+        IWebDriver driver;
+
+        [SetUp]
+        public void SetupMethod()
+        {
+            driver = new ChromeDriver();
+            driver.Url = "https://rahulshettyacademy.com/AutomationPractice/";
+
+        }
+        [Test]
+        public void TestMethod()
+        {
+            IList<IWebElement> list = driver.FindElements(By.XPath("//input[@name='radioButton']"));
+            list[2].Click();
+
+
+        }
+        [TearDown]
+        public void TearDown()
+        {
+
+        }
+    }
+}
