@@ -1,0 +1,42 @@
+using OpenQA.Selenium;
+using OpenQA.Selenium.Edge;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ecommerce_Project.SeleniumBasics
+{
+  public class AlertMessage
+    {
+        IWebDriver driver;
+        [SetUp]
+        public void SetUp()
+        {
+            driver = new EdgeDriver();
+            driver.Navigate().GoToUrl("https://rahulshettyacademy.com/AutomationPractice/");
+            driver.Manage().Window.Maximize();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+        }
+
+        [Test]
+        public void Test()
+        {
+            
+            driver.FindElement(By.Name("enter-name")).SendKeys("Vinoth");
+           // driver.FindElement(By.Id("alertbtn")).Click();
+            driver.FindElement(By.Id("confirmbtn")).Click();
+            driver.SwitchTo().Alert().Accept();
+           
+            
+
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            driver.Close();
+        }
+    }
+}
