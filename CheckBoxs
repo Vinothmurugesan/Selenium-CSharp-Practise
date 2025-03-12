@@ -1,0 +1,30 @@
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ecommerce_Project.SeleniumBasics
+{
+    public class CheckBox
+    {
+
+        [Test]
+        public void SelectCheckBox()
+        {
+            IWebDriver driver = new ChromeDriver();
+            driver.Url = "https://rahulshettyacademy.com/AutomationPractice/";
+
+           IList<IWebElement> list =  driver.FindElements(By.XPath("//input[@id='checkBoxOption1'] | //input[@id = 'checkBoxOption3']"));
+
+           
+                foreach(IWebElement element in list)
+                {
+                    element.Click();
+                }
+          
+        }
+    }
+}
